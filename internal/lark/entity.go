@@ -78,7 +78,7 @@ type PageList struct {
 func (l *PageList) Merge(page *PageList) {
 	if page.Total > 0 {
 		l.PageToken = page.PageToken
-		l.HasMore = l.HasMore || page.HasMore
+		l.HasMore = l.HasMore && page.HasMore
 		l.Total += page.Total
 		l.Items = append(l.Items, page.Items...)
 	}

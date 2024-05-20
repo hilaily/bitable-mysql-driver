@@ -103,7 +103,7 @@ func (r *rows) loadMore(in Rows) error {
 	}
 	r.seek = 0
 	// 如果需要后续查询，pageToken 不应该为空
-	r.pageList = res
+	r.pageList.Merge(res)
 	return nil
 }
 
