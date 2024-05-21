@@ -78,8 +78,8 @@ func (r *rows) Next(in Rows, dest []driver.Value) error {
 			r.count++
 			return nil
 		}
-		// pageToken 判断是否加载过
-		if r.pageList.PageToken != "" && !r.pageList.HasMore {
+		// items == 0 判断是否加载过
+		if len(r.pageList.Items) != 0 && !r.pageList.HasMore {
 			return io.EOF
 		}
 		if err := r.loadMore(in); err != nil {
@@ -103,7 +103,7 @@ func (r *rows) loadMore(in Rows) error {
 	}
 	r.seek = 0
 	// 如果需要后续查询，pageToken 不应该为空
-	r.pageList.Merge(res)
+	r.pageList = res
 	return nil
 }
 
